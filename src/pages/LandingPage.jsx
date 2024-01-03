@@ -1,9 +1,20 @@
 
-function LandingPage() {
+import { useNavigate } from 'react-router-dom'
+import { useEffect } from "react"
+
+function LandingPage({ user, setUser }) {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
+
+
   return (
-    <div>
-      Landing Page
-    </div>
+    <div>calculator</div>
+
   )
 }
 
