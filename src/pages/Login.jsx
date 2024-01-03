@@ -1,28 +1,43 @@
 import { Container, Typography, TextField, Button, } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import userService from '../services/userService';
 
-function Login() {
+function Login({ user, setUser }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+
+
+  //Return user to landingpage if user is logged
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user, navigate])
 
   const handleLogin = (e) => {
     e.preventDefault();
 
     const credentials = {
       username,
-      password
-    }
+      password,
+    };
 
-    userService.login(credentials).then((_res) => {
-      navigate("/");
-      setUsername("");
-      setPassword("");
-    })
-  }
+    userService.login(credentials)
+      .then((res) => {
+        window.localStorage.setItem('loggedPcUser', JSON.stringify(res));
+        setUser(res);
+        navigate('/');
+        setUsername('');
+        setPassword('');
+      })
+      .catch((error) => {
+        console.error('Login failed:', error);
+        // Handle login error (e.g., display an error message to the user)
+      });
+  };
 
   return (
     <Container maxWidth="sm">

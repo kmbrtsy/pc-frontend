@@ -1,14 +1,21 @@
 import { Container, Typography, TextField, Button } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import userService from '../services/userService';
 
-function Register() {
+function Register(user) {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+
+  //Return user to landingpage if user is logged
+  // useEffect(() => {
+  //   if (user) {
+  //     navigate("/");
+  //   }
+  // }, [user, navigate])
 
   const handleRegistration = (e) => {
     e.preventDefault();
