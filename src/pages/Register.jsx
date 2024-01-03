@@ -1,7 +1,7 @@
 import { Container, Typography, TextField, Button } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
-import userService from '../services/userService';
+import userService from '../services/userService.js';
 
 function Register(user) {
   const [name, setName] = useState("");
@@ -10,12 +10,14 @@ function Register(user) {
 
   const navigate = useNavigate();
 
-  //Return user to landingpage if user is logged
-  // useEffect(() => {
-  //   if (user) {
-  //     navigate("/");
-  //   }
-  // }, [user, navigate])
+  // Return user to landingpage if user is logged
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    } else {
+      navigate("/register");
+    }
+  }, [user, navigate]);
 
   const handleRegistration = (e) => {
     e.preventDefault();
@@ -24,7 +26,7 @@ function Register(user) {
       name,
       username,
       password
-    }
+    };
 
     userService.register(credentials).then((res) => {
       console.log(res)

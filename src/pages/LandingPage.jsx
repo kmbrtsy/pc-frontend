@@ -27,6 +27,6 @@ function LandingPage({ user, setUser }) {
       <Button onClick={handleLogout}>Log out</Button>
     </div>
   );
-}
+};
 
 export default LandingPage;
