@@ -5,7 +5,6 @@ import { TextField } from '@mui/material';
 export default function ItemCalculator() {
   const [items, setItems] = useState([]);
   const [quantity, setQuantity] = useState(1);
-  // const [plots, setPlots] = useState(60);
   const [calculatedValues, setCalculatedValues] = useState([]);
 
   // Fetch items in database
@@ -51,7 +50,9 @@ export default function ItemCalculator() {
             <p>Energy Cost: {calculatedItem.energyCost}</p>
             <p>Seed Cost: {calculatedItem.seedCost}</p>
             <p>Sell Value: {calculatedItem.sellValue}</p>
-            <button>favorites</button>
+            <button>
+              add to favorites
+            </button>
             <button>add to do</button>
             <hr />
           </li>
