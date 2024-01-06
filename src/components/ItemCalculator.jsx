@@ -4,7 +4,6 @@ import { Grid, TextField, Typography, Button, List, ListItem, ListItemText, Divi
 import { Box } from '@mui/system';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import './App.css';
 
 export default function ItemCalculator() {
   const [items, setItems] = useState([]);
@@ -51,14 +50,14 @@ export default function ItemCalculator() {
   };
 
   return (
-    <div style={{ backgroundColor: '#14213d', padding: '20px', minHeight: '100vh', color: '#fff' }}>
-    <Typography variant="h4">Calculator</Typography>
+    <div style={{ padding: '20px', minHeight: '100vh', color: '#fff' }}>
+      <Typography variant="h4" style={{ color: '#fff' }}>Calculator</Typography>
       <TextField
         placeholder='Quantity'
         type='number'
         value={quantity}
         onChange={(e) => setQuantity(e.target.value)}
-      />
+        style={{ color: '#fff', backgroundColor: '#fff', fontSize: '14px', borderRadius: '5px', width: '150px',  }}      />
 
 <Grid container spacing={2}>
         {calculatedValues.map((calculatedItem, index) => (
@@ -69,51 +68,63 @@ export default function ItemCalculator() {
         style={{
           display: 'grid',
           gap: '10px', // Adjust gap as needed
+          fontSize: '12px'
         }}
       >
         {calculatedValues.map((calculatedItem, index) => (
           <React.Fragment key={index}>
             <ListItem>
-              <Box border={1} p={2} sx={{ width: '100%' }}>
+              <Box border={0} p={2} 
+                   sx={{ width: '100%', 
+                   backgroundColor: '#003366',
+                   borderRadius: '20px',
+                   fontSize: '12px' }}>
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
                   <Button
                     onClick={() => addToFavorites(calculatedItem.itemName)}
                     style={{
-                      marginRight: '4px',
+                      marginRight: '0',
+                      padding: '0',
                       backgroundColor: 'transparent',
+                      minWidth: 'unset',
                     }}
                   >
                     <FavoriteIcon
                       style={{
+                        fontSize: '1rem',
                         color: favoriteStates[calculatedItem.itemName] ? 'red' : 'black',
                       }}
                     />
                   </Button>
-                  <Button onClick={() => addToDoList(calculatedItem.itemName)}>
-                    <AddCircleOutlineIcon />
+                  <Button onClick={() => addToDoList(calculatedItem.itemName)}
+                  style={{ minWidth: 'unset',
+                }}>
+                    <AddCircleOutlineIcon
+                    style={{fontSize: '1rem',}} />
                   </Button>
                 </div>
-                <ListItemText primary={`Item Name: ${calculatedItem.itemName}`} />
-                <ListItemText primary={`Item Type: ${calculatedItem.itemType}`} />
+                
+                <ListItemText  primary={<Typography variant="subtitle1" style={{fontSize: '14px', fontWeight: 'bold'}}>  {calculatedItem.itemName} </Typography>}/>
+                <ListItemText  primary={<Typography variant="subtitle1" style={{fontSize: '12px'}}>Type: {calculatedItem.itemType} </Typography>}/>
                 <Divider />
 
-                <Typography variant="subtitle1">Energy Cost:</Typography>
+                <Typography variant="subtitle1" style={{ fontSize: '12px', fontWeight: 'bold' }}>Energy Cost:</Typography>
                 <Paper elevation={3} style={{ padding: '10px', marginBottom: '10px' }}>
-                  <Typography>
+                  <Typography style={{ fontSize: '12px' }}>
                     {calculatedItem.energyCost}
                   </Typography>
                 </Paper>
 
-                <Typography variant="subtitle1">Seed Cost:</Typography>
+                <Typography variant="subtitle1" style={{ fontSize: '12px', fontWeight: 'bold' }}>Seed Cost:</Typography>
                 <Paper elevation={3} style={{ padding: '10px', marginBottom: '10px' }}>
-                  <Typography>
+                  <Typography style={{ fontSize: '12px' }}>
                     {calculatedItem.seedCost}
                   </Typography>
                 </Paper>
 
-                <Typography variant="subtitle1">Sell Value:</Typography>
+                <Typography variant="subtitle1" style={{ fontSize: '12px', fontWeight: 'bold' }}>Sell Value:</Typography>
                 <Paper elevation={3} style={{ padding: '10px', marginBottom: '10px' }}>
-                  <Typography>
+                  <Typography style={{ fontSize: '12px' }}>
                     {calculatedItem.sellValue}
                   </Typography>
                 </Paper>

@@ -46,6 +46,7 @@ const NavigationTabs = styled(Tabs)(({ theme }) => ({
     color: '#fff',
     position: 'absolute',
     bottom: 0,
+    zIndex: 1,
     [theme.breakpoints.down('sm')]: {
         // Adjust styles for smaller screens
         backgroundColor: 'rgba(0, 0, 0, 0.7)',
@@ -61,14 +62,13 @@ const Header = () => {
   };
 
   return (
-    <Paper elevation={0} square>
-      <AppBar position="static">
-        <Toolbar>
-          <Container maxWidth="md">
+    <AppBar position="static" elevation={0} style={{ borderBottom: 'none', backgroundColor: 'transparent' }}>
+        <Toolbar style={{ backgroundColor: 'transparent' }}>
+          <Container maxWidth="md" style={{ backgroundColor: 'transparent'}}>
             <HeaderContainer>
               <CoverPhoto />
               <UserInfoContainer>
-                <AvatarStyled alt="User Avatar" src="/path/to/your/avatar.jpg" />
+                {/* <AvatarStyled alt="User Avatar" src="/path/to/your/avatar.jpg" /> */}
               </UserInfoContainer>
               <NavigationTabs value={value} onChange={handleChange}>
                 <Tab label="Home" />
@@ -80,7 +80,6 @@ const Header = () => {
           </Container>
         </Toolbar>
       </AppBar>
-    </Paper>
   );
 };
 
