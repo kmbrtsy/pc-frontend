@@ -1,11 +1,6 @@
-/* app.css */
-
 body {
-    font-size: 12px;
     background-color: #14213d; /* Replace with your desired color code */
-    color: #fff; /* Text color */
-    margin: 0; /* Remove default margin */
-    padding: 20px; /* Add padding for content */
-    min-height: 100vh; /* Ensure full viewport height */
+    margin: 0px; /* Remove default margin */
+    padding: 0px;
   }
   

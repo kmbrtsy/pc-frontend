@@ -27,15 +27,15 @@ function LandingPage({ user, setUser }) {
 
       <div>
         <Header/>
-        {user ? (
+        {/* {user ? (
           <p>Hi! {user.name}</p>
         ) : (
           <p>Hi! Please log in.</p>
         )}
-        <Button onClick={handleLogout}>Log out</Button>
-
-        {/* Use the ItemCalculator component */}
+         */}
         <ItemCalculator />
+        <Button onClick={handleLogout}>Log out</Button>
+        
       </div>
     </div>
   );

@@ -16,7 +16,7 @@ const CoverPhoto = styled('div')(({ theme }) => ({
   width: '100%',
   paddingTop: '50%', // Maintain a 2:1 aspect ratio for the cover photo
   position: 'relative',
-  backgroundImage: 'url("https://i.pinimg.com/564x/f2/72/94/f272943e5355a948e9430a8c79e6f1cb.jpg")',
+  backgroundImage: 'url("https://img.freepik.com/free-vector/alien-planet-landscape-space-game-background_107791-1847.jpg?w=900&t=st=1704522227~exp=1704522827~hmac=18aafede44d4ada4beb0179f5e4a7405c2cb1668d9a43cc98177683c55345f0d")',
   backgroundSize: 'cover',
   backgroundPosition: 'center',
 }));
@@ -70,11 +70,11 @@ const Header = () => {
               <UserInfoContainer>
                 {/* <AvatarStyled alt="User Avatar" src="/path/to/your/avatar.jpg" /> */}
               </UserInfoContainer>
-              <NavigationTabs value={value} onChange={handleChange}>
-                <Tab label="Home" />
-                <Tab label="Profile" />
-                <Tab label="Tools" />
-                <Tab label="Guide" />
+              <NavigationTabs value={value} onChange={handleChange} style={{color: 'white'}}>
+                <Tab style={{color: 'white'}} label="Home" />
+                <Tab style={{color: 'white'}} label="Profile" />
+                <Tab style={{color: 'white'}} label="Tools" />
+                <Tab style={{color: 'white'}} label="Guide" />
               </NavigationTabs>
             </HeaderContainer>
           </Container>

@@ -1,26 +1,20 @@
 import React from 'react';
-import { Paper, Typography } from '@mui/material';
+import { Global, css } from '@emotion/react';
 
-const ItemInfo = ({ itemName, itemType, seedCost, energyCost, sellValue }) => {
+const globalStyles = css`
+  body {
+    background-color: #14213d;
+    margin: 0; 
+  }
+`;
+
+const App = () => {
   return (
-    <Paper elevation={3} style={{ padding: '16px', margin: '16px', textAlign: 'center' }}>
-      <Typography variant="h6" gutterBottom>
-        {itemName}
-      </Typography>
-      <Typography variant="subtitle1" gutterBottom>
-        Type: {itemType}
-      </Typography>
-      <Typography variant="subtitle1" gutterBottom>
-        Seed Cost: {seedCost}
-      </Typography>
-      <Typography variant="subtitle1" gutterBottom>
-        Energy Cost: {energyCost}
-      </Typography>
-      <Typography variant="subtitle1">
-        Sell Value: {sellValue}
-      </Typography>
-    </Paper>
+    <>
+      <Global styles={globalStyles} />
+      {/* Your application components go here */}
+    </>
   );
 };
 
-export default ItemInfo;
+export default App;
