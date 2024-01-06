@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { Button } from '@mui/material';
 import ItemCalculator from '../components/itemCalculator.jsx';
-
+import Header from './Header.jsx'
 
 
 function LandingPage({ user, setUser }) {
@@ -26,6 +26,7 @@ function LandingPage({ user, setUser }) {
     <div>
 
       <div>
+        <Header/>
         {user ? (
           <p>Hi! {user.name}</p>
         ) : (
