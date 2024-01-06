@@ -5,6 +5,7 @@ import { Button } from '@mui/material';
 import ItemCalculator from '../components/itemCalculator.jsx';
 
 
+
 function LandingPage({ user, setUser }) {
   const navigate = useNavigate();
 
@@ -23,6 +24,7 @@ function LandingPage({ user, setUser }) {
 
   return (
     <div>
+
       <div>
         {user ? (
           <p>Hi! {user.name}</p>
