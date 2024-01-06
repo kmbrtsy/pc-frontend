@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import userService from '../services/userService.js';
 
-function Register(user) {
+function Register({ user }) {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -14,8 +14,6 @@ function Register(user) {
   useEffect(() => {
     if (user) {
       navigate("/");
-    } else {
-      navigate("/login");
     }
   }, [user, navigate]);
 

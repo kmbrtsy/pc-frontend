@@ -1,8 +1,9 @@
+// landingpage.jsx
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { Button } from '@mui/material';
-import Header from './Header';
-import Items from './Items';
+import ItemCalculator from '../components/itemCalculator.jsx';
+
 
 
 function LandingPage({ user, setUser }) {
@@ -15,23 +16,28 @@ function LandingPage({ user, setUser }) {
     }
   }, [user, navigate]);
 
+  // logout Logged in user
   const handleLogout = () => {
-    window.localStorage.removeItem('loggedPCUser');
+    window.localStorage.removeItem('loggedPcUser');
     setUser(null);
   };
 
   return (
     <div>
-      <Header />
-      <Items/>
-      {user ? (
-        <p>Hi! {user.name}</p>
-      ) : (
-        <p>Hi! Please log in.</p>
-      )}
-      <Button onClick={handleLogout}>Log out</Button>
+
+      <div>
+        {user ? (
+          <p>Hi! {user.name}</p>
+        ) : (
+          <p>Hi! Please log in.</p>
+        )}
+        <Button onClick={handleLogout}>Log out</Button>
+
+        {/* Use the ItemCalculator component */}
+        <ItemCalculator />
+      </div>
     </div>
   );
-};
+}
 
 export default LandingPage;
