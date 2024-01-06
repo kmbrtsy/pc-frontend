@@ -15,7 +15,7 @@ function Register(user) {
     if (user) {
       navigate("/");
     } else {
-      navigate("/register");
+      navigate("/login");
     }
   }, [user, navigate]);
 

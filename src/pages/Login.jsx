@@ -29,6 +29,7 @@ function Login({ user, setUser }) {
       .then((res) => {
         window.localStorage.setItem('loggedPcUser', JSON.stringify(res));
         setUser(res);
+        console.log("Navigating to /");
         navigate('/');
         setUsername('');
         setPassword('');

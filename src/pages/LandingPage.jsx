@@ -1,6 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { Button } from '@mui/material';
+import Header from './Header';
+import Items from './Items';
+
 
 function LandingPage({ user, setUser }) {
   const navigate = useNavigate();
@@ -19,6 +22,8 @@ function LandingPage({ user, setUser }) {
 
   return (
     <div>
+      <Header />
+      <Items/>
       {user ? (
         <p>Hi! {user.name}</p>
       ) : (
