@@ -22,16 +22,16 @@ const CoverPhoto = styled('div')(({ theme }) => ({
 }));
 
 const UserInfoContainer = styled('div')(({ theme }) => ({
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-end', // Align content to the bottom
-    position: 'absolute',
-    bottom: 15, // Align to the bottom
-    width: '100%',
-    paddingLeft: theme.spacing(2),
-  }));
-  
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  justifyContent: 'flex-end', // Align content to the bottom
+  position: 'absolute',
+  bottom: 15, // Align to the bottom
+  width: '100%',
+  paddingLeft: theme.spacing(2),
+}));
+
 
 const AvatarStyled = styled(Avatar)(({ theme }) => ({
   width: theme.spacing(7),
@@ -41,18 +41,18 @@ const AvatarStyled = styled(Avatar)(({ theme }) => ({
 }));
 
 const NavigationTabs = styled(Tabs)(({ theme }) => ({
-    width: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Add a semi-transparent background
-    color: '#fff',
-    position: 'absolute',
-    bottom: 0,
-    zIndex: 1,
-    [theme.breakpoints.down('sm')]: {
-        // Adjust styles for smaller screens
-        backgroundColor: 'rgba(0, 0, 0, 0.7)',
-      },
-  }));
-  
+  width: '100%',
+  backgroundColor: 'rgba(0, 0, 0, 0.5)', // Add a semi-transparent background
+  color: '#fff',
+  position: 'absolute',
+  bottom: 0,
+  zIndex: 1,
+  [theme.breakpoints.down('sm')]: {
+    // Adjust styles for smaller screens
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+  },
+}));
+
 
 const Header = () => {
   const [value, setValue] = React.useState(0);
@@ -63,23 +63,23 @@ const Header = () => {
 
   return (
     <AppBar position="static" elevation={0} style={{ borderBottom: 'none', backgroundColor: 'transparent' }}>
-        <Toolbar style={{ backgroundColor: 'transparent' }}>
-          <Container maxWidth="md" style={{ backgroundColor: 'transparent'}}>
-            <HeaderContainer>
-              <CoverPhoto />
-              <UserInfoContainer>
-                {/* <AvatarStyled alt="User Avatar" src="/path/to/your/avatar.jpg" /> */}
-              </UserInfoContainer>
-              <NavigationTabs value={value} onChange={handleChange} style={{color: 'white'}}>
-                <Tab style={{color: 'white'}} label="Home" />
-                <Tab style={{color: 'white'}} label="Profile" />
-                <Tab style={{color: 'white'}} label="Tools" />
-                <Tab style={{color: 'white'}} label="Guide" />
-              </NavigationTabs>
-            </HeaderContainer>
-          </Container>
-        </Toolbar>
-      </AppBar>
+      <Toolbar style={{ backgroundColor: 'transparent' }}>
+        <Container maxWidth="md" style={{ backgroundColor: 'transparent' }}>
+          <HeaderContainer>
+            <CoverPhoto />
+            <UserInfoContainer>
+              {/* <AvatarStyled alt="User Avatar" src="/path/to/your/avatar.jpg" /> */}
+            </UserInfoContainer>
+            <NavigationTabs value={value} onChange={handleChange} style={{ color: 'white' }}>
+              <Tab style={{ color: 'white' }} label="Home" />
+              <Tab style={{ color: 'white' }} label="Calculator" />
+              <Tab style={{ color: 'white' }} label="Tasks List" />
+              <Tab style={{ color: 'white' }} label="Guide" />
+            </NavigationTabs>
+          </HeaderContainer>
+        </Container>
+      </Toolbar>
+    </AppBar>
   );
 };
 
