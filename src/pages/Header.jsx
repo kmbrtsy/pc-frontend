@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from '@mui/system';
-import { AppBar, Toolbar, Avatar, Typography, Container, Paper, Tab, Tabs } from '@mui/material';
+import { AppBar, Toolbar, Avatar, Container, Tab, Tabs } from '@mui/material';
 
 const HeaderContainer = styled('div')(({ theme }) => ({
   backgroundColor: 'rgba(0, 172, 238, 0.7)', // Transparent blue color
