@@ -1,13 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { getItems } from '../services';
-import { Grid, TextField, Typography, Button, List, ListItem, ListItemText, Divider, Paper } from '@mui/material';
+import {
+  Grid,
+  TextField,
+  Typography,
+  Button,
+  List,
+  ListItem,
+  ListItemText,
+  Divider,
+  Paper,
+} from '@mui/material';
 import { Box } from '@mui/system';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
+const initialItemState = {
+  itemName: "Your Item Name",
+  itemType: "Your Item Type",
+  energyCost: 0,
+  seedCost: 0,
+  sellValue: 0,
+  quantity: 1,
+};
+
 export default function ItemCalculator() {
   const [items, setItems] = useState([]);
-  const [quantity, setQuantity] = useState(1);
   const [calculatedValues, setCalculatedValues] = useState([]);
   const [favoriteStates, setFavoriteStates] = useState({});
 
@@ -15,8 +33,18 @@ export default function ItemCalculator() {
     const fetchItem = async () => {
       try {
         const data = await getItems();
-        setItems(data);
-        setFavoriteStates(Object.fromEntries(data.map(item => [item.itemName, false])));
+        // Initialize items with the initialItemState structure
+        const initialItems = data.map(item => ({ ...initialItemState, ...item }));
+
+        // Fetch user data including favoriteItems
+        const user = await getCurrentUser(); // Implement getCurrentUser() to fetch the logged-in user's data
+        const userFavoriteItemIds = user.favoriteItems.map(favoriteItem => favoriteItem.id);
+
+        setItems(initialItems);
+        setFavoriteStates(Object.fromEntries(initialItems.map(item => [
+          item.itemName,
+          userFavoriteItemIds.includes(item.id)
+        ])));
       } catch (error) {
         console.error('Error fetching items:', error);
       }
@@ -26,23 +54,38 @@ export default function ItemCalculator() {
   }, []);
 
   useEffect(() => {
-    const calculatedValues = items.map(item => ({
+    const updatedCalculatedValues = items.map(item => ({
       itemName: item.itemName,
       itemType: item.itemType,
-      energyCost: item.energyCost * quantity,
-      seedCost: item.seedCost * quantity,
-      sellValue: item.sellValue * quantity,
+      energyCost: item.energyCost * item.quantity,
+      seedCost: item.seedCost * item.quantity,
+      sellValue: item.sellValue * item.quantity,
     }));
 
-    setCalculatedValues(calculatedValues);
-  }, [quantity, items]);
+    setCalculatedValues(updatedCalculatedValues);
+  }, [items]);
 
-  const addToFavorites = (itemName) => {
-    console.log(`${itemName} added to favorites`);
-    setFavoriteStates((prevStates) => ({
-      ...prevStates,
-      [itemName]: !prevStates[itemName],
-    }));
+  const addToFavorites = async (itemName) => {
+    try {
+      const item = items.find(item => item.itemName === itemName);
+
+      // Check if the item is already in favorites
+      const isFavorite = favoriteStates[itemName];
+
+      // Update the user's favoriteItems in the database
+      const updatedUser = await updateUserFavorites(item.id, isFavorite);
+
+      // Update the local state based on the updated user data
+      setFavoriteStates((prevStates) => ({
+        ...prevStates,
+        [itemName]: !isFavorite,
+      }));
+
+      console.log(`${itemName} ${isFavorite ? 'removed from' : 'added to'} favorites`);
+
+    } catch (error) {
+      console.error('Error updating favorites:', error);
+    }
   };
 
   const addToDoList = (itemName) => {
@@ -59,18 +102,6 @@ export default function ItemCalculator() {
         variant="h4"
         style={{ color: '#fff' }}>
         Calculator</Typography>
-      <TextField
-        placeholder='Quantity'
-        type='number'
-        value={quantity}
-        onChange={(e) => setQuantity(e.target.value)}
-        style={{
-          color: '#fff',
-          backgroundColor: '#fff',
-          fontSize: '14px',
-          borderRadius: '5px',
-          width: '150px',
-        }} />
 
       <Grid container spacing={2}>
         {calculatedValues.map((calculatedItem, index) => (
@@ -124,6 +155,29 @@ export default function ItemCalculator() {
                         style={{ fontSize: '1rem', }} />
                     </Button>
                   </div>
+
+                  <TextField
+                    placeholder="Quantity"
+                    type="number"
+                    value={calculatedItem.quantity}
+                    onChange={(e) => {
+                      const newQuantity = e.target.value;
+                      setItems((prevItems) =>
+                        prevItems.map((prevItem) =>
+                          prevItem.itemName === calculatedItem.itemName
+                            ? { ...prevItem, quantity: newQuantity }
+                            : prevItem
+                        )
+                      );
+                    }}
+                    style={{
+                      color: '#fff',
+                      backgroundColor: '#fff',
+                      fontSize: '14px',
+                      borderRadius: '5px',
+                      width: '150px',
+                    }}
+                  />
 
                   <ListItemText
                     primary={<Typography

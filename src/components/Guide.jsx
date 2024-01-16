@@ -1,8 +1,11 @@
 import React from 'react'
+import Header from '../pages/Header'
 
 function Guide() {
   return (
-    <div>Guide</div>
+    <div>
+      <Header />
+    </div>
   )
 }
 
