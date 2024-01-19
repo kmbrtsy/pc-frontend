@@ -14,7 +14,6 @@ function Register({ user }) {
   useEffect(() => {
     if (user) {
       navigate("/");
-
     }
   }, [user, navigate]);
 
@@ -38,8 +37,15 @@ function Register({ user }) {
   }
 
   return (
-    <Container maxWidth="sm">
-      <Typography variant="h3" align="center" gutterBottom>
+    <Container maxWidth="sm"   style={{
+    textAlign: 'center',
+    background: `url('your-image-url')`, // Replace 'your-image-url' with the actual image URL
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    opacity: 0.75,
+  }}>
+      <Typography variant="h3" align="center" gutterBottom style={{color: '#fff', fontSize: '24px'}}>
         Register an account
       </Typography>
 
@@ -52,6 +58,8 @@ function Register({ user }) {
           required
           value={name}
           onChange={(e) => setName(e.target.value)}
+          style={{ color: '#fff', backgroundColor: '#fff', fontSize: '14px', borderRadius: '5px'}}
+
         />
 
         <TextField
@@ -62,7 +70,8 @@ function Register({ user }) {
           required
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-        />
+          style={{ color: '#fff', backgroundColor: '#fff', borderRadius: '5px', }}      />
+
 
         <TextField
           label="Password"
@@ -73,16 +82,17 @@ function Register({ user }) {
           required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-        />
+          style={{ color: '#fff', backgroundColor: '#fff', borderRadius: '5px', }}      />
 
-        <Button variant="contained" color="primary" type="submit">
+
+        <Button variant="contained" color="primary" type="submit" style={{ marginTop: '15px', marginBottom: '15px' }}>
           Register
         </Button>
       </form>
 
-      <Typography variant="body2" align="center" gutterBottom>
+      <Typography variant="body2" align="center" gutterBottom style={{ color: '#fff' }}>
         Already have an account?{' '}
-        <Link to="/login" color="primary">
+        <Link to="/login" style={{ color: '#fff' }}>
           Login here
         </Link>
       </Typography>

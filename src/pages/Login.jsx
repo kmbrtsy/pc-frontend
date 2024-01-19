@@ -2,6 +2,7 @@ import { Container, Typography, TextField, Button, } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import userService from '../services/userService';
+import { Directions } from '@mui/icons-material';
 
 function Login({ user, setUser }) {
   const [username, setUsername] = useState("");
@@ -29,6 +30,7 @@ function Login({ user, setUser }) {
       .then((res) => {
         window.localStorage.setItem('loggedPcUser', JSON.stringify(res));
         setUser(res);
+        console.log("Navigating to /");
         navigate('/');
         setUsername('');
         setPassword('');
@@ -40,8 +42,9 @@ function Login({ user, setUser }) {
   };
 
   return (
-    <Container maxWidth="sm">
-      <Typography variant="h3" align="center" gutterBottom>
+    <Container maxWidth="sm"  style={{ textAlign: 'center',     opacity: 0.75,
+  }}>
+      <Typography variant="h3" align="center" gutterBottom style={{ color: '#fff', fontSize: '24px', }}>
         Login to your account
       </Typography>
 
@@ -54,7 +57,7 @@ function Login({ user, setUser }) {
           required
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-        />
+          style={{ color: '#fff', backgroundColor: '#fff', borderRadius: '5px', }}      />
 
         <TextField
           label="Password"
@@ -65,16 +68,17 @@ function Login({ user, setUser }) {
           required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-        />
+          style={{ color: '#fff', backgroundColor: '#fff', borderRadius: '5px', }}      />
 
-        <Button variant="contained" color="primary" type="submit">
+
+        <Button variant="contained" color="primary" type="submit" style={{ marginTop: '15px', marginBottom: '15px' }}>
           Login
         </Button>
       </form>
 
-      <Typography variant="body2" align="center" gutterBottom>
+      <Typography variant="body2" align="center" gutterBottom style={{ color: '#fff' }}>
         Don't have an account?{' '}
-        <Link to="/register" color="primary">
+        <Link to="/register" style={{ color: '#fff' }}>
           Register here
         </Link>
       </Typography>
