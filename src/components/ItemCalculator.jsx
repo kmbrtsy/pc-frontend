@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getItems } from '../services';
+import { createTask } from '../services/taskService';
 import {
   Grid,
   TextField,
@@ -45,6 +46,7 @@ export default function ItemCalculator() {
   }, []);
 
   useEffect(() => {
+
     const updatedCalculatedValues = items.map(item => ({
       itemName: item.itemName,
       itemType: item.itemType,
@@ -213,6 +215,6 @@ export default function ItemCalculator() {
           </Grid>
         ))}
       </Grid>
-    </div>
+    </di
   );
 }
