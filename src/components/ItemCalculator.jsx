@@ -33,18 +33,9 @@ export default function ItemCalculator() {
     const fetchItem = async () => {
       try {
         const data = await getItems();
-        // Initialize items with the initialItemState structure
         const initialItems = data.map(item => ({ ...initialItemState, ...item }));
-
-        // Fetch user data including favoriteItems
-        const user = await getCurrentUser(); // Implement getCurrentUser() to fetch the logged-in user's data
-        const userFavoriteItemIds = user.favoriteItems.map(favoriteItem => favoriteItem.id);
-
         setItems(initialItems);
-        setFavoriteStates(Object.fromEntries(initialItems.map(item => [
-          item.itemName,
-          userFavoriteItemIds.includes(item.id)
-        ])));
+        setFavoriteStates(Object.fromEntries(initialItems.map(item => [item.itemName, false])));
       } catch (error) {
         console.error('Error fetching items:', error);
       }
@@ -65,27 +56,13 @@ export default function ItemCalculator() {
     setCalculatedValues(updatedCalculatedValues);
   }, [items]);
 
-  const addToFavorites = async (itemName) => {
-    try {
-      const item = items.find(item => item.itemName === itemName);
+  const addToFavorites = (itemName) => {
+    setFavoriteStates((prevStates) => ({
+      ...prevStates,
+      [itemName]: !prevStates[itemName],
+    }));
 
-      // Check if the item is already in favorites
-      const isFavorite = favoriteStates[itemName];
-
-      // Update the user's favoriteItems in the database
-      const updatedUser = await updateUserFavorites(item.id, isFavorite);
-
-      // Update the local state based on the updated user data
-      setFavoriteStates((prevStates) => ({
-        ...prevStates,
-        [itemName]: !isFavorite,
-      }));
-
-      console.log(`${itemName} ${isFavorite ? 'removed from' : 'added to'} favorites`);
-
-    } catch (error) {
-      console.error('Error updating favorites:', error);
-    }
+    console.log(`${itemName} ${prevStates[itemName] ? 'removed from' : 'added to'} favorites`);
   };
 
   const addToDoList = (itemName) => {
