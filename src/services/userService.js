@@ -17,7 +17,6 @@ const fetchFavoriteItems = async (userId) => {
   try {
     const response = await axios.get(`/users/${userId}/favorite-items`);
     return response.data;
-    
   } catch (error) {
     console.error("Error fetching favorite items:", error);
     return [];
@@ -38,9 +37,21 @@ async function addToFavorites(userId, itemId, authToken) {
   return response.data;
 }
 
+async function removeFromFavorites(userId, itemId, authToken) {
+  const response = await axios.delete(`/users/${userId}/remove-favorite-item`, {
+    data: { itemId },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${authToken}`,
+    },
+  });
+  return response.data;
+}
+
 export default {
   register,
   login,
   fetchFavoriteItems,
   addToFavorites,
+  removeFromFavorites,
 };

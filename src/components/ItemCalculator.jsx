@@ -99,9 +99,16 @@ export default function ItemCalculator() {
       }
 
       const authToken = user.token;
-      await userService.addToFavorites(user.id, itemId, authToken);
+      // Check if the item is already in favorites
+      if (isItemInFavorites(itemId)) {
+        // If it is, remove it from favorites
+        await userService.removeFromFavorites(user.id, itemId, authToken);
+      } else {
+        // If it's not, add it to favorites
+        await userService.addToFavorites(user.id, itemId, authToken);
+      }
 
-      // Refresh favorite items after adding to favorites
+      // Refresh favorite items after adding/removing from favorites
       const updatedFavoriteItems = await userService.fetchFavoriteItems(user.id);
       setFavoriteItems(updatedFavoriteItems);
     } catch (error) {
