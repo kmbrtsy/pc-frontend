@@ -31,6 +31,8 @@ export default function ItemCalculator() {
   const [calculatedValues, setCalculatedValues] = useState([]);
   const [user, setUser] = useState(null);
   const [favoriteItems, setFavoriteItems] = useState([]);
+  const [quantity, setQuantity] = useState(1);
+  const [itemQuantities, setItemQuantities] = useState({});
 
   useEffect(() => {
     // Retrieve the user from local storage
@@ -48,6 +50,13 @@ export default function ItemCalculator() {
         const data = await getItems();
         const initialItems = data.map(item => ({ ...initialItemState, ...item }));
         setItems(initialItems);
+
+        // Initialize itemQuantities with default quantity for each item
+        const initialQuantities = {};
+        initialItems.forEach(item => {
+          initialQuantities[item.itemName] = item.quantity;
+        });
+        setItemQuantities(initialQuantities);
       } catch (error) {
         console.error('Error fetching items:', error);
       }
@@ -116,8 +125,26 @@ export default function ItemCalculator() {
     }
   };
 
-  const addToDoList = (itemName) => {
-    console.log(`${itemName} added to to-do list`);
+  const addToTaskList = async (calculatedItem, itemId) => {
+    try {
+      if (!user) {
+        console.error("User is null or undefined");
+        // Handle the case where user is null or undefined
+        return;
+      }
+
+      const authToken = user.token;
+      const quantityToSend = itemQuantities[calculatedItem.itemName];
+      await userService.createTaskForUser(user.id, calculatedItem.id, quantityToSend, authToken);
+
+      // Optionally, you can show a success message or update the UI accordingly.
+      console.log(`Task created for item ${itemId} with quantity: ${quantityToSend}`);
+      console.log(quantityToSend);
+
+    } catch (error) {
+      console.error("Error adding task:", error.message);
+      // Handle the error, e.g., show an error message to the user
+    }
   };
 
   return (
@@ -176,7 +203,9 @@ export default function ItemCalculator() {
                       />
                     </Button>
 
-                    <Button onClick={() => addToDoList(calculatedItem.itemName)}
+                    <Button
+                      onClick={() => addToTaskList(calculatedItem, calculatedItem.id)}
+
                       style={{
                         padding: '0',
                         minWidth: 'unset'
@@ -189,9 +218,14 @@ export default function ItemCalculator() {
                   <TextField
                     placeholder="Quantity"
                     type="number"
-                    value={calculatedItem.quantity}
+                    value={itemQuantities[calculatedItem.itemName]}
                     onChange={(e) => {
                       const newQuantity = e.target.value;
+                      setItemQuantities((prevQuantities) => ({
+                        ...prevQuantities,
+                        [calculatedItem.itemName]: newQuantity,
+                      }));
+
                       setItems((prevItems) =>
                         prevItems.map((prevItem) =>
                           prevItem.itemName === calculatedItem.itemName

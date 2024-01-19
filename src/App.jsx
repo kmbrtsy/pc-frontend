@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import TaskList from './components/TaskList';
 import ItemCalculator from './components/ItemCalculator';
 import Hero from './pages/Hero';
+import Lands from './components/Lands';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -23,12 +24,14 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<LandingPage user={user} setUser={setUser} />} />
+      <Route path="/" element={<LandingPage user={user} />} />
       <Route path="/register" element={<Register user={user} />} />
       <Route path="/login" element={<Login user={user} setUser={setUser} />} />
-      <Route path="/Calculator" element={<ItemCalculator user={user} setUser={setUser} />} />
-      <Route path="/Tasks" element={<TaskList user={user} setUser={setUser} />} />
-      <Route path="/hero" element={<Hero user={user} setUser={setUser}/>}></Route>
+      <Route path="/Calculator" element={<ItemCalculator user={user} />} />
+      <Route path="/hero" element={<Hero user={user} />}></Route>
+
+      <Route path="/tasks" element={<TaskList user={user} />} />
+      <Route path="/lands" element={<Lands user={user} />} />
     </Routes>
   )
 }
