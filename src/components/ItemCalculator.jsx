@@ -33,6 +33,16 @@ export default function ItemCalculator() {
   const [favoriteItems, setFavoriteItems] = useState([]);
 
   useEffect(() => {
+    // Retrieve the user from local storage
+    const storedUser = JSON.parse(window.localStorage.getItem('loggedPcUser'));
+
+    if (storedUser) {
+      console.log('(3)User ID:', storedUser.id);
+      setUser(storedUser);
+    }
+  }, []);
+
+  useEffect(() => {
     const fetchItem = async () => {
       try {
         const data = await getItems();
@@ -76,12 +86,19 @@ export default function ItemCalculator() {
   }, [items]);
 
   const isItemInFavorites = (itemId) => {
-    return favoriteItems.includes(itemId);
+    return favoriteItems.map(item => item.id).includes(itemId);
   };
 
   const addToFavorites = async (itemId) => {
     try {
-      const authToken = user?.token;
+      if (!user) {
+        // Handle the case where user is null or undefined
+        console.error("User is null or undefined");
+        // You might want to redirect the user to the login page or show a message
+        return;
+      }
+
+      const authToken = user.token;
       await userService.addToFavorites(user.id, itemId, authToken);
 
       // Refresh favorite items after adding to favorites
