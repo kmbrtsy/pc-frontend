@@ -61,6 +61,24 @@ async function createTaskForUser(userId, itemId, quantity, authToken) {
     throw error;
   }
 }
+async function deleteTask(userId, taskId, authToken) {
+  try {
+    const response = await axios.delete(
+      `${baseUrl}/${userId}/delete-task`,
+      { taskId },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error creating task:", error.message);
+    throw error;
+  }
+}
 
 async function fetchUserTasks(userId, authToken) {
   try {
@@ -83,4 +101,5 @@ export default {
   removeFromFavorites,
   createTaskForUser,
   fetchUserTasks,
+  deleteTask,
 };

@@ -1,6 +1,6 @@
 // Lands.jsx
 import React, { useEffect, useState } from 'react';
-import userService from '../services/landService';
+import { getLands } from '../services/landService';
 import {
   Typography,
   List,
@@ -9,16 +9,14 @@ import {
   Divider,
 } from '@mui/material';
 
-const Lands = () => {
+export default function Lands() {
   const [lands, setLands] = useState([]);
 
   useEffect(() => {
     const fetchLands = async () => {
       try {
-        if (user) {
-          const data = await userService.getLands(user.id);
-          setLands(data);
-        }
+        const data = await getLands();
+        setLands(data);
       } catch (error) {
         console.error('Error fetching Lands:', error);
       }
@@ -28,8 +26,8 @@ const Lands = () => {
   }, []);
 
   return (
-    <div style={{ padding: '20px', minHeight: '100vh', color: '#fff' }}>
-      <Typography variant="h4" style={{ color: '#fff' }}>
+    <div style={{ padding: '20px', minHeight: '100vh', color: '#191830' }}>
+      <Typography variant="h4" style={{ color: '#191830' }}>
         Lands
       </Typography>
 
@@ -37,10 +35,10 @@ const Lands = () => {
         {lands.map((land) => (
           <div key={land.id}>
             <ListItem>
-              <ListItemText
-                primary={`Land Number: ${land.landNumber}`}
-                secondary={`Description: ${land.landDescription || 'N/A'}`}
-              />
+              <h4>Land: #{land.landNumber}</h4>
+              <h5>Description{land.landDescription || 'N/A'}</h5>
+              <h5>Type{land.landtype}</h5>
+              <h5>Industries{land.landIndustries || 'N/A'}</h5>
             </ListItem>
             <Divider />
           </div>
@@ -48,6 +46,4 @@ const Lands = () => {
       </List>
     </div>
   );
-};
-
-export default Lands;
+}

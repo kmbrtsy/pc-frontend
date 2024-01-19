@@ -1,7 +1,7 @@
 // TaskList.jsx
 import React, { useEffect, useState } from 'react';
 import userService from '../services/userService';
-import { Typography, List, ListItem, Divider } from '@mui/material';
+import { Typography, List, ListItem, Divider, Button } from '@mui/material';
 
 const TaskList = ({ user }) => {
   const [tasks, setTasks] = useState([]);
@@ -21,6 +21,18 @@ const TaskList = ({ user }) => {
     fetchUserTasks();
   }, [user]);
 
+  const handleDelete = async (taskId) => {
+    try {
+      // Make a request to delete the task
+      await userService.deleteTask(user.id, taskId);
+
+      // Update the local tasks list
+      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+    } catch (error) {
+      console.error('Error deleting task:', error);
+    }
+  };
+
   return (
     <div>
       <Typography variant="h4" style={{ color: '#fff' }}>
@@ -35,9 +47,19 @@ const TaskList = ({ user }) => {
                 Item: {task.itemName}
               </Typography>
               <Typography variant="subtitle1" style={{ fontSize: '14px', fontWeight: 'bold' }}>
+                Energy Cost {task.energyCost}
+              </Typography>
+              <Typography variant="subtitle1" style={{ fontSize: '14px', fontWeight: 'bold' }}>
+                Sell Value {task.sellValue}
+              </Typography>
+              <Typography variant="subtitle1" style={{ fontSize: '14px', fontWeight: 'bold' }}>
+                Item: {task.itemName}
+              </Typography>
+              <Typography variant="subtitle1" style={{ fontSize: '14px', fontWeight: 'bold' }}>
                 Quantity: {task.quantity}
               </Typography>
-              {/* Display other item properties here */}
+
+              <Button onClick={() => handleDelete(task.id)}>X</Button>
             </ListItem>
             <Divider />
           </div>
