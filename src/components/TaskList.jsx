@@ -1,7 +1,12 @@
 // TaskList.jsx
 import React, { useEffect, useState } from 'react';
 import userService from '../services/userService';
+<<<<<<< HEAD
 import { Typography, List, ListItem, Divider, Button } from '@mui/material';
+=======
+import { Typography, List, ListItem, Divider, Paper } from '@mui/material';
+import Header from '../pages/Header';
+>>>>>>> 905b6bc22433d37c34c392dfeb4a05a105204991
 
 const TaskList = ({ user }) => {
   const [tasks, setTasks] = useState([]);
@@ -34,11 +39,11 @@ const TaskList = ({ user }) => {
   };
 
   return (
-    <div>
-      <Typography variant="h4" style={{ color: '#fff' }}>
-        Task List
-      </Typography>
+    <div >
+      <Header />
+      <div style={{ padding: '20px', minHeight: '100vh',}}>
 
+<<<<<<< HEAD
       <List>
         {tasks.map((task) => (
           <div key={task.id}>
@@ -65,6 +70,37 @@ const TaskList = ({ user }) => {
           </div>
         ))}
       </List>
+=======
+        <List>
+          {tasks.map((task) => (
+            <div key={task.id}>
+              <ListItem>
+                <Paper
+                  elevation={3}
+                  style={{
+                    backdropFilter: 'blur(5px)', 
+                    borderRadius: '10px', 
+                    padding: '10px', 
+                    width: '200px',
+                    backgroundColor: '#080820',
+                    color: 'whitesmoke'
+                  }}
+                >
+                  <Typography variant="subtitle1" style={{ fontSize: '14px', fontWeight: 'bold' }}>
+                    Item: {task.itemName}
+                  </Typography>
+                  <Typography variant="subtitle1" style={{ fontSize: '14px', fontWeight: 'bold' }}>
+                    Quantity: {task.quantity}
+                  </Typography>
+                  {/* Display other item properties here */}
+                </Paper>
+              </ListItem>
+              <Divider />
+            </div>
+          ))}
+        </List>
+      </div>
+>>>>>>> 905b6bc22433d37c34c392dfeb4a05a105204991
     </div>
   );
 };

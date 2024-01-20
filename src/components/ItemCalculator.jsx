@@ -17,6 +17,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import userService from '../services/userService';
 import '../Calculator.css'
+import Header from '../pages/Header';
 
 const initialItemState = {
   itemName: "Your Item Name",
@@ -149,11 +150,10 @@ export default function ItemCalculator() {
   };
 
   return (
+    <div>
+      <Header />
+    
     <div className="calculator-container">
-      <Typography variant="h5" className="calculator-heading">
-        Calculator
-      
-      </Typography>
 
       <Grid container spacing={2}>
         {calculatedValues.map((calculatedItem) => (
@@ -179,33 +179,38 @@ export default function ItemCalculator() {
                     
                   </div>
 
-                  <TextField
-                    placeholder="0"
-                    type="number"
-                    value={itemQuantities[calculatedItem.itemName]}
-                    onChange={(e) => {
-                      const newQuantity = e.target.value;
-                      setItemQuantities((prevQuantities) => ({
-                        ...prevQuantities,
-                        [calculatedItem.itemName]: newQuantity,
-                      }));
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <Typography style={{ fontSize: '12px', fontWeight: 'bold', marginRight: '70px' }}>Quantity:</Typography>
+                    <TextField
+                      placeholder="0"
+                      type="number"
+                      value={itemQuantities[calculatedItem.itemName]}
+                      onChange={(e) => {
+                        const newQuantity = e.target.value;
+                        setItemQuantities((prevQuantities) => ({
+                          ...prevQuantities,
+                          [calculatedItem.itemName]: newQuantity,
+                        }));
 
-                      setItems((prevItems) =>
-                        prevItems.map((prevItem) =>
-                          prevItem.itemName === calculatedItem.itemName
-                            ? { ...prevItem, quantity: newQuantity }
-                            : prevItem
-                        )
-                      );
-                    }}
-                    style={{
-                      color: 'rgba(255, 255, 255, 0.75)', // Adjust the alpha value (0.75) as needed
-                      backgroundColor: 'rgba(255, 255, 255, 0.1)', // Adjust the alpha value (0.1) as needed
-                      fontSize: '10px',
-                      borderRadius: '20px',
-                      width: '100px',
-                    }}
-                  />
+                        setItems((prevItems) =>
+                          prevItems.map((prevItem) =>
+                            prevItem.itemName === calculatedItem.itemName
+                              ? { ...prevItem, quantity: newQuantity }
+                              : prevItem
+                          )
+                        );
+                      }}
+                      style={{
+                        color: 'rgba(255, 255, 255, 0.75)',
+                        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                        fontSize: '10px',
+                        borderRadius: '20px',
+                        width: '100px',
+                        marginLeft: 'auto',
+                      }}
+                    />
+                  </div>
+                  
 
                   <ListItemText
                     primary={<Typography variant="subtitle1" style={{ fontSize: '14px', fontWeight: 'bold' }}>{calculatedItem.itemName}</Typography>} />
@@ -234,6 +239,7 @@ export default function ItemCalculator() {
           </Grid>
         ))}
       </Grid>
+    </div>
     </div>
   );
 }
