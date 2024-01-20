@@ -1,10 +1,9 @@
-// landingpage.jsx
+// LandingPage.jsx
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { Button } from '@mui/material';
 import ItemCalculator from '../components/ItemCalculator.jsx';
-import Header from './Header.jsx'
-
+import Header from './Header.jsx';
 
 function LandingPage({ user, setUser }) {
   const navigate = useNavigate();
@@ -24,14 +23,8 @@ function LandingPage({ user, setUser }) {
 
   return (
     <div>
-
-      <div>
-        <Header />
-
-        <ItemCalculator />
-        <Button onClick={handleLogout}>Log out</Button>
-
-      </div>
+      <Header handleLogout={handleLogout} />
+      <ItemCalculator />
     </div>
   );
 }
