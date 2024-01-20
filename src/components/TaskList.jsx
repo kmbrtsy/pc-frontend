@@ -1,7 +1,8 @@
 // TaskList.jsx
 import React, { useEffect, useState } from 'react';
 import userService from '../services/userService';
-import { Typography, List, ListItem, Divider } from '@mui/material';
+import { Typography, List, ListItem, Divider, Paper } from '@mui/material';
+import Header from '../pages/Header';
 
 const TaskList = ({ user }) => {
   const [tasks, setTasks] = useState([]);
@@ -22,27 +23,39 @@ const TaskList = ({ user }) => {
   }, [user]);
 
   return (
-    <div>
-      <Typography variant="h4" style={{ color: '#fff' }}>
-        Task List
-      </Typography>
+    <div >
+      <Header />
+      <div style={{ padding: '20px', minHeight: '100vh',}}>
 
-      <List>
-        {tasks.map((task) => (
-          <div key={task.id}>
-            <ListItem>
-              <Typography variant="subtitle1" style={{ fontSize: '14px', fontWeight: 'bold' }}>
-                Item: {task.itemName}
-              </Typography>
-              <Typography variant="subtitle1" style={{ fontSize: '14px', fontWeight: 'bold' }}>
-                Quantity: {task.quantity}
-              </Typography>
-              {/* Display other item properties here */}
-            </ListItem>
-            <Divider />
-          </div>
-        ))}
-      </List>
+        <List>
+          {tasks.map((task) => (
+            <div key={task.id}>
+              <ListItem>
+                <Paper
+                  elevation={3}
+                  style={{
+                    backdropFilter: 'blur(5px)', 
+                    borderRadius: '10px', 
+                    padding: '10px', 
+                    width: '200px',
+                    backgroundColor: '#080820',
+                    color: 'whitesmoke'
+                  }}
+                >
+                  <Typography variant="subtitle1" style={{ fontSize: '14px', fontWeight: 'bold' }}>
+                    Item: {task.itemName}
+                  </Typography>
+                  <Typography variant="subtitle1" style={{ fontSize: '14px', fontWeight: 'bold' }}>
+                    Quantity: {task.quantity}
+                  </Typography>
+                  {/* Display other item properties here */}
+                </Paper>
+              </ListItem>
+              <Divider />
+            </div>
+          ))}
+        </List>
+      </div>
     </div>
   );
 };
