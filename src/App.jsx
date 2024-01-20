@@ -6,7 +6,6 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import TaskList from './components/TaskList';
 import ItemCalculator from './components/ItemCalculator';
-import Hero from './pages/Hero';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -28,7 +27,6 @@ function App() {
       <Route path="/login" element={<Login user={user} setUser={setUser} />} />
       <Route path="/Calculator" element={<ItemCalculator user={user} setUser={setUser} />} />
       <Route path="/Tasks" element={<TaskList user={user} setUser={setUser} />} />
-      <Route path="/hero" element={<Hero user={user} setUser={setUser}/>}></Route>
     </Routes>
   )
 }

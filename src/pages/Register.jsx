@@ -1,7 +1,8 @@
+import React, { useState, useEffect } from 'react';
 import { Container, Typography, TextField, Button } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from "react";
 import userService from '../services/userService.js';
+import backgroundImage from '../images/rawnin.png';
 
 function Register({ user }) {
   const [name, setName] = useState("");
@@ -10,7 +11,7 @@ function Register({ user }) {
 
   const navigate = useNavigate();
 
-  // Return user to landingpage if user is logged
+  // Return user to the landing page if the user is logged in
   useEffect(() => {
     if (user) {
       navigate("/");
@@ -27,77 +28,76 @@ function Register({ user }) {
     };
 
     userService.register(credentials).then((res) => {
-      console.log(res)
-
+      console.log(res);
       navigate("/login");
       setName("");
       setUsername("");
       setPassword("");
     });
-  }
+  };
 
   return (
-    <Container maxWidth="sm"   style={{
-    textAlign: 'center',
-    background: `url('your-image-url')`, // Replace 'your-image-url' with the actual image URL
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-    opacity: 0.75,
-  }}>
-      <Typography variant="h3" align="center" gutterBottom style={{color: '#fff', fontSize: '24px'}}>
-        Register an account
-      </Typography>
+    <Container maxWidth="md" style={{ display: 'flex', height: '100vh' }}>
+      {/* Left half - Image */}
+      <div style={{ flex: 1, backgroundImage: `url(${backgroundImage})`, backgroundSize: 'contain', backgroundPosition: 'center center', backgroundRepeat: 'no-repeat' }} />
 
-      <form onSubmit={handleRegistration}>
-        <TextField
-          label="Name"
-          variant="outlined"
-          margin="normal"
-          fullWidth
-          required
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          style={{ color: '#fff', backgroundColor: '#fff', fontSize: '14px', borderRadius: '5px'}}
+      {/* Right half - Register form */}
+      <div style={{ flex: 1, width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '40px', background: '#080811', color: '#fff' }}>
+        <Typography variant="h3" align="center" gutterBottom>
+          Register an account
+        </Typography>
 
-        />
+        <form onSubmit={handleRegistration} style={{ width: '100%' }}>
+          <TextField
+            label="Name"
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            InputProps={{ style: { color: '#080811', borderRadius: '5px' } }}
+          />
 
-        <TextField
-          label="Username"
-          variant="outlined"
-          margin="normal"
-          fullWidth
-          required
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          style={{ color: '#fff', backgroundColor: '#fff', borderRadius: '5px', }}      />
+          <TextField
+            label="Username"
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            required
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            InputProps={{ style: { color: '#080811', borderRadius: '5px' } }}
+          />
 
+          <TextField
+            label="Password"
+            type="password"
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            InputProps={{ style: { color: '#080811', borderRadius: '5px' } }}
+          />
 
-        <TextField
-          label="Password"
-          type="password"
-          variant="outlined"
-          margin="normal"
-          fullWidth
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          style={{ color: '#fff', backgroundColor: '#fff', borderRadius: '5px', }}      />
+          <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+              <Button variant="contained" color="primary" type="submit" style={{ marginTop: '15px', marginBottom: '15px', borderRadius: '5px', backgroundColor: '#FFD700' }}>
+                Login
+              </Button>
+            </div>
+        </form>
 
-
-        <Button variant="contained" color="primary" type="submit" style={{ marginTop: '15px', marginBottom: '15px' }}>
-          Register
-        </Button>
-      </form>
-
-      <Typography variant="body2" align="center" gutterBottom style={{ color: '#fff' }}>
-        Already have an account?{' '}
-        <Link to="/login" style={{ color: '#fff' }}>
-          Login here
-        </Link>
-      </Typography>
+        <Typography variant="body2" align="center" gutterBottom>
+          Already have an account?{' '}
+          <Link to="/login" style={{ color: '#fff' }}>
+            Login here
+          </Link>
+        </Typography>
+      </div>
     </Container>
-  )
+  );
 }
 
-export default Register
+export default Register;

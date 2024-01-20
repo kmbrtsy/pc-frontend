@@ -14,6 +14,7 @@ import {
 import { Box } from '@mui/system';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import '../Calculator.css'
 
 const initialItemState = {
   itemName: "Your Item Name",
@@ -70,71 +71,29 @@ export default function ItemCalculator() {
   };
 
   return (
-    <div style={{
-      padding: '20px',
-      minHeight: '100vh',
-      color: '#fff'
-    }}>
-      <Typography
-        variant="h4"
-        style={{ color: '#fff' }}>
-        Calculator</Typography>
+    <div className="calculator-container">
+      <Typography variant="h5" className="calculator-heading">
+        Calculator
+      </Typography>
 
       <Grid container spacing={2}>
         {calculatedValues.map((calculatedItem, index) => (
-          <Grid
-            item
-            xs={12} sm={6} md={4} lg={3}
-            key={index}>
-
-            <List
-              style={{
-                display: 'grid',
-                gap: '10px', // Adjust gap as needed
-                fontSize: '12px'
-              }}
-            >
+          <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+            <List className="item-list">
               <ListItem key={index}>
-                <Box border={0} p={2}
-                  sx={{
-                    width: '100%',
-                    backgroundColor: '#003366',
-                    borderRadius: '20px',
-                    fontSize: '12px'
-                  }}>
-                  <div style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'flex-end'
-                  }}>
-                    <Button
-                      onClick={() => addToFavorites(calculatedItem.itemName)}
-                      style={{
-                        padding: '0',
-                        backgroundColor: 'transparent',
-                        minWidth: 'unset',
-                      }}
-                    >
-                      <FavoriteIcon
-                        style={{
-                          fontSize: '1rem',
-                          color: favoriteStates[calculatedItem.itemName] ? 'red' : 'black',
-                        }}
-                      />
+                <Box border={0} p={2} className="item-box">
+                  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
+                    <Button onClick={() => addToFavorites(calculatedItem.itemName)} style={{ padding: '0', backgroundColor: 'transparent', minWidth: 'unset' }}>
+                      <FavoriteIcon style={{ fontSize: '1rem', color: favoriteStates[calculatedItem.itemName] ? 'red' : 'black' }} />
                     </Button>
-                    <Button onClick={() => addToDoList(calculatedItem.itemName)}
-                      style={{
-                        padding: '0',
-                        minWidth: 'unset'
-                      }}>
-                      <AddCircleOutlineIcon
-                        style={{ fontSize: '1rem', }} />
+                    <Button onClick={() => addToDoList(calculatedItem.itemName)} style={{ padding: '0', minWidth: 'unset' }}>
+                      <AddCircleOutlineIcon style={{ fontSize: '1rem' }} />
                     </Button>
+                    
                   </div>
 
                   <TextField
-                    placeholder="Quantity"
+                    placeholder="0"
                     type="number"
                     value={calculatedItem.quantity}
                     onChange={(e) => {
@@ -148,63 +107,33 @@ export default function ItemCalculator() {
                       );
                     }}
                     style={{
-                      color: '#fff',
-                      backgroundColor: '#fff',
-                      fontSize: '14px',
-                      borderRadius: '5px',
-                      width: '150px',
+                      color: 'rgba(255, 255, 255, 0.75)', // Adjust the alpha value (0.75) as needed
+                      backgroundColor: 'rgba(255, 255, 255, 0.1)', // Adjust the alpha value (0.1) as needed
+                      fontSize: '10px',
+                      borderRadius: '20px',
+                      width: '100px',
                     }}
                   />
 
                   <ListItemText
-                    primary={<Typography
-                      variant="subtitle1"
-                      style={{
-                        fontSize: '14px',
-                        fontWeight: 'bold'
-                      }}>  {calculatedItem.itemName} </Typography>} />
+                    primary={<Typography variant="subtitle1" style={{ fontSize: '14px', fontWeight: 'bold' }}>{calculatedItem.itemName}</Typography>} />
                   <ListItemText
-                    primary={<Typography
-                      variant="subtitle1"
-                      style={{ fontSize: '12px' }}>
-                      Type: {calculatedItem.itemType} </Typography>} />
+                    primary={<Typography variant="subtitle1" style={{ fontSize: '12px' }}>Type: {calculatedItem.itemType}</Typography>} />
                   <Divider />
 
-                  <Typography
-                    variant="subtitle1"
-                    style={{ fontSize: '12px', fontWeight: 'bold' }}>Energy Cost:</Typography>
-                  <Paper
-                    elevation={3}
-                    style={{ padding: '10px', marginBottom: '10px' }}>
-
-                    <Typography style={{ fontSize: '12px' }}>
-                      {calculatedItem.energyCost}
-                    </Typography>
+                  <Typography variant="subtitle1" style={{ fontSize: '12px', fontWeight: 'bold' }}>Energy Cost:</Typography>
+                  <Paper elevation={3} className="calculation-paper">
+                    <Typography style={{ fontSize: '12px' }}>{calculatedItem.energyCost}</Typography>
                   </Paper>
 
-                  <Typography
-                    variant="subtitle1"
-                    style={{ fontSize: '12px', fontWeight: 'bold' }}>
-                    Seed Cost:</Typography>
-                  <Paper
-                    elevation={3}
-                    style={{ padding: '10px', marginBottom: '10px' }}>
-                    <Typography style={{ fontSize: '12px' }}>
-                      {calculatedItem.seedCost}
-                    </Typography>
+                  <Typography variant="subtitle1" style={{ fontSize: '12px', fontWeight: 'bold' }}>Seed Cost:</Typography>
+                  <Paper elevation={3} className="calculation-paper">
+                    <Typography style={{ fontSize: '12px' }}>{calculatedItem.seedCost}</Typography>
                   </Paper>
 
-                  <Typography variant="subtitle1"
-                    style={{
-                      fontSize: '12px',
-                      fontWeight: 'bold'
-                    }}>Sell Value:</Typography>
-                  <Paper
-                    elevation={3}
-                    style={{ padding: '10px', marginBottom: '10px' }}>
-                    <Typography style={{ fontSize: '12px' }}>
-                      {calculatedItem.sellValue}
-                    </Typography>
+                  <Typography variant="subtitle1" style={{ fontSize: '12px', fontWeight: 'bold' }}>Sell Value:</Typography>
+                  <Paper elevation={3} className="calculation-paper">
+                    <Typography style={{ fontSize: '12px' }}>{calculatedItem.sellValue}</Typography>
                   </Paper>
                 </Box>
               </ListItem>
