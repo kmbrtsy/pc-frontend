@@ -1,8 +1,7 @@
-// TaskList.jsx
 import React, { useEffect, useState } from 'react';
 import userService from '../services/userService';
-import { Typography, List, ListItem, Divider, Paper } from '@mui/material';
-import Header from '../pages/Header';
+import { Typography, List, ListItem, Divider, Button } from '@mui/material'; 
+import Header from '../pages/Header'; 
 
 const TaskList = ({ user }) => {
   const [tasks, setTasks] = useState([]);
@@ -35,33 +34,28 @@ const TaskList = ({ user }) => {
   };
 
   return (
-    <div >
+    <div>
       <Header />
-      <div style={{ padding: '20px', minHeight: '100vh',}}>
+      <div style={{ padding: '20px', minHeight: '100vh' }}>
 
         <List>
           {tasks.map((task) => (
             <div key={task.id}>
               <ListItem>
-                <Paper
-                  elevation={3}
-                  style={{
-                    backdropFilter: 'blur(5px)', 
-                    borderRadius: '10px', 
-                    padding: '10px', 
-                    width: '200px',
-                    backgroundColor: '#080820',
-                    color: 'whitesmoke'
-                  }}
-                >
-                  <Typography variant="subtitle1" style={{ fontSize: '14px', fontWeight: 'bold' }}>
-                    Item: {task.itemName}
-                  </Typography>
-                  <Typography variant="subtitle1" style={{ fontSize: '14px', fontWeight: 'bold' }}>
-                    Quantity: {task.quantity}
-                  </Typography>
-                  {/* Display other item properties here */}
-                </Paper>
+                <Typography variant="subtitle1" style={{ fontSize: '14px', fontWeight: 'bold' }}>
+                  Item: {task.itemName}
+                </Typography>
+                <Typography variant="subtitle1" style={{ fontSize: '14px', fontWeight: 'bold' }}>
+                  Energy Cost {task.energyCost}
+                </Typography>
+                <Typography variant="subtitle1" style={{ fontSize: '14px', fontWeight: 'bold' }}>
+                  Sell Value {task.sellValue}
+                </Typography>
+                <Typography variant="subtitle1" style={{ fontSize: '14px', fontWeight: 'bold' }}>
+                  Quantity: {task.quantity}
+                </Typography>
+
+                <Button onClick={() => handleDelete(task.id)}>X</Button>
               </ListItem>
               <Divider />
             </div>
